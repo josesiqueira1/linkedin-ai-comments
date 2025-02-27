@@ -26,11 +26,11 @@ export abstract class AbstractAIService implements AIService {
 
     buildCommentPrompt(postContent: string, config: CommentConfig): string {
         const lengthMap = {
-            veryShort: '1 sentence, maximum 10 words',
-            short: '1 sentence, maximum 20 words',
-            medium: '2-3 sentences, maximum 40 words',
-            long: '3-4 sentences, maximum 60 words',
-            veryLong: '4-5 sentences, maximum 80 words'
+            veryShort: '1 sentence, maximum 5 words',
+            short: '1 sentence, maximum 10 words',
+            medium: '2-3 sentences, maximum 30 words',
+            long: '3-4 sentences, maximum 50 words',
+            veryLong: '4-5 sentences, maximum 70 words'
         };
 
         const toneInstruction = this.getToneInstructions(config.tone);
