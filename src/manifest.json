@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "LinkedIn Comment Generator",
+    "description": "Gera comentários automáticos usando IA para posts no LinkedIn",
+    "version": "1.0",
+    "icons": {
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.linkedin.com/*"
+            ],
+            "js": [
+                "content/content.js"
+            ]
+        }
+    ],
+    "action": {
+        "default_popup": "popup/popup.html",
+        "default_icon": "icon.png"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "services/ai/*.js",
+                "services/linkedin/*.js",
+                "models/*.js"
+            ],
+            "matches": [
+                "https://www.linkedin.com/*"
+            ]
+        }
+    ]
+}

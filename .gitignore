@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+*.log
+
+# Ignore config file with API key
+src/models/config.ts
+
+# Keep example config
+!src/models/config.example.ts 

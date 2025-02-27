@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LinkedIn Comment Generator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="tabs">
+        <div class="tab" id="commentTab">
+            <h2>Comment Config</h2>
+            <div class="slider-container">
+                <label>Length: <span id="lengthValue">Medium</span></label>
+                <input type="range" id="lengthSlider" min="0" max="4" value="2">
+                <div class="slider-labels">
+                    <span>Very Short</span>
+                    <span>Short</span>
+                    <span>Medium</span>
+                    <span>Long</span>
+                    <span>Very Long</span>
+                </div>
+            </div>
+            <label>Tone:</label>
+            <select id="toneSelect">
+                <option value="Excited">Excited</option>
+                <option value="Happy">Happy</option>
+                <option value="Gracious">Gracious</option>
+                <option value="Supportive">Supportive</option>
+                <option value="Polite" selected>Polite</option>
+                <option value="Witty">Witty</option>
+                <option value="Comic">Comic</option>
+                <option value="RespectfullyOpposed">Respectfully Opposed</option>
+                <option value="Provocative">Provocative</option>
+                <option value="Controversial">Controversial</option>
+                <option value="Disappointed">Disappointed</option>
+                <option value="Sad">Sad</option>
+                <option value="Frustrated">Frustrated</option>
+                <option value="Sarcastic">Sarcastic</option>
+                <option value="Angry">Angry</option>
+                <option value="Nasty">Nasty</option>
+            </select>
+            <label><input type="checkbox" id="openEndedComment"> Open-ended</label>
+        </div>
+        <div class="tab" id="replyTab">
+            <h2>Reply Config</h2>
+            <label><input type="checkbox" id="keepShort" checked> Keep Short</label>
+            <label><input type="checkbox" id="openEndedReply"> Open-ended</label>
+        </div>
+    </div>
+    <script type="module" src="popup.js"></script>
+</body>
+
+</html>
