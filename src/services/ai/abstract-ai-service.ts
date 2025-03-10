@@ -37,7 +37,7 @@ export abstract class AbstractAIService implements AIService {
 
         return `You are a professional LinkedIn user crafting a ${lengthMap[config.length]} comment on a post.
             Tone instruction: ${toneInstruction}
-            ${config.openEnded ? 'End with an engaging question to encourage discussion.' : ''}
+            ${this.getOpenEndedInstruction(config.openEnded)}
             IMPORTANT: Strictly follow the length limit. Do not exceed the maximum words specified.
             Post content: "${postContent}"
             Generate a comment that adds value to the discussion.
@@ -50,7 +50,7 @@ export abstract class AbstractAIService implements AIService {
 
         return `You are a professional LinkedIn user responding to a comment.
             ${lengthGuide}
-            ${config.openEnded ? 'End with a question to encourage further discussion.' : ''}
+            ${this.getOpenEndedInstruction(config.openEnded)}
             IMPORTANT: Strictly follow the length limit. Do not exceed the maximum words specified.
             Comment you are replying to: "${commentContent}"
             Write a thoughtful reply that adds value to the conversation while maintaining professionalism.
@@ -68,6 +68,10 @@ export abstract class AbstractAIService implements AIService {
         const prompt = this.buildReplyPrompt(commentContent, config);
         const response = await this.callAI(prompt);
         return this.cleanResponse(response);
+    }
+
+    protected getOpenEndedInstruction(openEnded: boolean): string {
+        return openEnded ? 'End with an engaging question to encourage discussion.' : 'Close the topic with a thoughtful conclusion.';
     }
 
     protected cleanResponse(response: string): string {
