@@ -39,7 +39,7 @@ document.addEventListener('click', async (event) => {
         const { text: postContent, parent: postParent } = getPostContent(target);
         if (!postParent) return;
         const comment = await aiService.generateComment(postContent, commentConfig);
-        linkedinService.fillComment(comment, postParent as HTMLElement);
+        linkedinService.fillComment(comment, postParent);
     }
 
     if (target.closest('button.comments-comment-social-bar__reply-action-button--cr')) {
@@ -47,7 +47,7 @@ document.addEventListener('click', async (event) => {
         const { text: commentContent, parent: commentParent } = getCommentContent(target);
         if (!commentParent) return;
         const reply = await aiService.generateReply(commentContent, replyConfig);
-        linkedinService.fillReply(reply, commentParent as HTMLElement);
+        linkedinService.fillReply(reply, commentParent);
     }
 });
 
@@ -60,10 +60,27 @@ chrome.runtime.onMessage.addListener((message) => {
 });
 
 function getPostContent(button: HTMLElement): ContentDetail {
+    const getText = (element: HTMLElement) => element.textContent?.trim() || '';
+
     const container = button.closest('.feed-shared-update-v2');
     if (!container) return { text: '', parent: null };
-    const contentElement = container.querySelector('.feed-shared-update-v2__description');
-    return { text: contentElement?.textContent?.trim() || '', parent: container as HTMLElement };
+
+    const post = container.querySelector(".fie-impression-container")
+    const nestedPosts = post?.querySelectorAll('.feed-shared-update-v2__description');
+
+    let text = ""
+    if (!nestedPosts) return { text, parent: container as HTMLElement };
+
+    const postArray = Array.from(nestedPosts)
+    const authorPost = postArray.shift()
+    text += `Author's post: ${getText(authorPost as HTMLElement)}\n`
+
+    for (const post of postArray) {
+        text += `Reposted: ${getText(post as HTMLElement)}\n`;
+    }
+
+    console.log(text)
+    return { text, parent: container as HTMLElement };
 }
 
 function getCommentContent(button: HTMLElement): ContentDetail {
