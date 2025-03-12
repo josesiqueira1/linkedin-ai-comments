@@ -1,6 +1,6 @@
 export class LinkedInService {
     fillComment(text: string, commentBox: HTMLElement): void {
-        const t = commentBox.querySelector('.update-v2-social-activity .comments-comment-box--cr .ql-editor');
+        const t = commentBox.querySelector('.comments-comment-box--cr .ql-editor');
         this.fillTextArea(text, t as HTMLElement);
     }
 

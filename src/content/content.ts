@@ -34,6 +34,7 @@ export interface ContentDetail {
 document.addEventListener('click', async (event) => {
     const target = event.target as HTMLElement;
 
+    // Post na timeline
     if (target.closest('.feed-shared-social-action-bar__action-button button[aria-label*="Comment"]')) {
         event.preventDefault();
         const { text: postContent, parent: postParent } = getPostContent(target);
@@ -42,12 +43,22 @@ document.addEventListener('click', async (event) => {
         linkedinService.fillComment(comment, postParent);
     }
 
+    // Responder comentário
     if (target.closest('button.comments-comment-social-bar__reply-action-button--cr')) {
         event.preventDefault();
         const { text: commentContent, parent: commentParent } = getCommentContent(target);
         if (!commentParent) return;
         const reply = await aiService.generateReply(commentContent, replyConfig);
         linkedinService.fillReply(reply, commentParent);
+    }
+
+    // Artigo
+    if (target.closest('button.comment-button[aria-label*="Comment on"]')) {
+        event.preventDefault();
+        const { text: postContent, parent: postParent } = getArticleContent(target);
+        if (!postParent) return;
+        const comment = await aiService.generateComment(postContent, commentConfig);
+        linkedinService.fillComment(comment, postParent);
     }
 });
 
@@ -79,7 +90,6 @@ function getPostContent(button: HTMLElement): ContentDetail {
         text += `Reposted: ${getText(post as HTMLElement)}\n`;
     }
 
-    console.log(text)
     return { text, parent: container as HTMLElement };
 }
 
@@ -89,4 +99,19 @@ function getCommentContent(button: HTMLElement): ContentDetail {
     if (!commentContainer) return { text: '', parent: null };
     const contentElement = commentContainer.querySelector('.comments-comment-item__main-content');
     return { text: contentElement?.textContent?.trim() || '', parent: parent as HTMLElement };
+}
+
+function getArticleContent(button: HTMLElement): ContentDetail {
+    const getText = (element: HTMLElement) => element.textContent?.trim() || '';
+
+    const container = button.closest('div.scaffold-layout__content');
+    if (!container) return { text: '', parent: null };
+
+    const title = container.querySelector('h1.reader-article-header__title');
+    const post = container.querySelector("div.reader-content-blocks-container")
+
+    const text = `Title: ${getText(title as HTMLElement)}
+    Content: ${getText(post as HTMLElement)}`
+
+    return { text, parent: container as HTMLElement };
 }
