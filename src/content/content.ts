@@ -95,7 +95,7 @@ function getPostContent(button: HTMLElement): ContentDetail {
 
 function getCommentContent(button: HTMLElement): ContentDetail {
     const parent = button.closest('div.comment-social-activity:not(.comment-social-activity--is-reply)');
-    const commentContainer = parent?.closest('.comments-comment-entity');
+    const commentContainer = button.closest('article')?.querySelector('.comments-thread-entity');
     if (!commentContainer) return { text: '', parent: null };
     const contentElement = commentContainer.querySelector('.comments-comment-item__main-content');
     return { text: contentElement?.textContent?.trim() || '', parent: parent as HTMLElement };
