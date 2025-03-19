@@ -1,6 +1,6 @@
 {
   "name": "linkedin-ai-comments",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "A Chrome extension that uses AI to generate comments on LinkedIn",
   "scripts": {
     "clean": "rimraf dist",

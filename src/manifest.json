@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "LinkedIn Comment Generator",
     "description": "Gera comentários automáticos usando IA para posts no LinkedIn",
-    "version": "1.2",
+    "version": "1.2.1",
     "icons": {
         "16": "icon.png",
         "48": "icon.png",
