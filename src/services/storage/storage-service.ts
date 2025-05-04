@@ -1,12 +1,21 @@
-import { CommentConfig, ReplyConfig } from "../../models/types";
+import { CommentConfig, LLMConfig, ReplyConfig } from "../../models/types";
 
 export class StorageService {
+    static async saveLLMConfig(config: LLMConfig): Promise<void> {
+        await chrome.storage.local.set({ llmConfig: config });
+    }
+
+    static async getLLMConfig(): Promise<LLMConfig | null> {
+        const result = await chrome.storage.local.get("llmConfig");
+        return result.llmConfig || null;
+    }
+
     static async saveCommentConfig(config: CommentConfig): Promise<void> {
         await chrome.storage.local.set({ commentConfig: config });
     }
 
     static async getCommentConfig(): Promise<CommentConfig | null> {
-        const result = await chrome.storage.local.get('commentConfig');
+        const result = await chrome.storage.local.get("commentConfig");
         return result.commentConfig || null;
     }
 
@@ -15,7 +24,7 @@ export class StorageService {
     }
 
     static async getReplyConfig(): Promise<ReplyConfig | null> {
-        const result = await chrome.storage.local.get('replyConfig');
+        const result = await chrome.storage.local.get("replyConfig");
         return result.replyConfig || null;
     }
-} 
+}
