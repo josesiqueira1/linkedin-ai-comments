@@ -47,13 +47,7 @@ npm run build
 
 ## Modelos Disponíveis
 
-Por padrão, a extensão usa o modelo `mistralai/mistral-7b-instruct`. Você pode mudar para outros modelos disponíveis no OpenRouter editando o arquivo `config.ts`.
-
-Alguns modelos recomendados:
-
-- `mistralai/mistral-7b-instruct` - Bom equilíbrio entre qualidade e velocidade
-- `anthropic/claude-2` - Excelente qualidade, mas mais caro
-- `google/gemini-pro` - Boa qualidade e preço moderado
+Por padrão, a extensão usa o modelo `deepseek/deepseek-r1:free` e `gpt-4o-mini`. Você pode mudar para outros modelos disponíveis no OpenRouter ou OpenAI editando o arquivo `config.ts`.
 
 ## Segurança
 
