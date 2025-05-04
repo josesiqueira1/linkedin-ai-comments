@@ -67,11 +67,16 @@ document.addEventListener("click", async (event) => {
         const { text: postContent, parent: postParent } =
             getPostContent(target);
         if (!postParent) return;
+
+        const commentBox = linkedinService.getCommentBox(postParent);
+        if (!commentBox) return;
+        linkedinService.insertLoadingSpinner(commentBox);
+
         const comment = await aiService.generateComment(
             postContent,
             commentConfig,
         );
-        linkedinService.fillComment(comment, postParent);
+        linkedinService.fillComment(comment, commentBox);
     }
 
     // Responder comentário
@@ -85,11 +90,15 @@ document.addEventListener("click", async (event) => {
         const { text: commentContent, parent: commentParent } =
             getCommentContent(target);
         if (!commentParent) return;
+
+        const replyBox = linkedinService.getReplyBox(commentParent);
+        if (!replyBox) return;
+
         const reply = await aiService.generateReply(
             commentContent,
             replyConfig,
         );
-        linkedinService.fillReply(reply, commentParent);
+        linkedinService.fillReply(reply, replyBox);
     }
 
     // Artigo
@@ -99,11 +108,16 @@ document.addEventListener("click", async (event) => {
         const { text: postContent, parent: postParent } =
             getArticleContent(target);
         if (!postParent) return;
+
+        const commentBox = linkedinService.getCommentBox(postParent);
+        if (!commentBox) return;
+        linkedinService.insertLoadingSpinner(commentBox);
+
         const comment = await aiService.generateComment(
             postContent,
             commentConfig,
         );
-        linkedinService.fillComment(comment, postParent);
+        linkedinService.fillComment(comment, commentBox);
     }
 });
 
